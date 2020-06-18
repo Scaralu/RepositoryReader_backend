@@ -1,5 +1,5 @@
 const app = require("./app");
 
 app.listen(3333, () => {
-    console.log('🧐 Repository Reader Started');
+    console.log('🧐  Repository Reader Started');
   });

@@ -1,5 +1,5 @@
 const express = require("express");
-const {uuid} = require("uuidv4");
+const {uuid, isUuid} = require('uuidv4');
 const cors = require("cors");
 
 const app = express();
@@ -10,17 +10,17 @@ const repositories = [];
 
 function verifyId(request, response, next){
   const {id} = request.params;
-  
+
   if(!isUuid(id)){
-    response.status(400).json({
-      error : "Invalid Id"
+    return response.status(400).json({
+      error: 'Invalid project Id'
     })
   }
-
-  return next();
+  
+  next();
 }
 
-// app.use('/repositories/:id', verifyId)
+app.use('/repositories/:id', verifyId)
 app.use(express.json());
 
 
@@ -103,7 +103,7 @@ app.post("/repositories/:id/like", (request, response) => {
 
   repositories[repositoryIndex].likes += 1;
 
-  return response.json(repositories[repositoryIndex]);
+  return response.json(repositories[repositoryIndex])
 });
 
 module.exports = app;
